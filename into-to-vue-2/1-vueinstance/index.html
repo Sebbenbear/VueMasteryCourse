@@ -1,0 +1,25 @@
+<div id="app">
+    <h1>{{ product }}</h1> <!-- reference to data property in main.js-->
+    <p>{{ description }}</p>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="main.js"></script>
+
+<!-- 
+Other expressions:
+  {{ product + '?' }}
+  {{ firstName + ' ' + lastName }}
+  {{ clicked ? true : false }}
+  {{ message.split('').reverse().join('') }}
+
+  View is reactive. The product is referencing in multiple elements.
+
+  Check this in Javascript Console:
+  app.product = "Socks" and it will update.
+
+  Vue instance = heart of the app.
+  It plugs into an element in the Dom.
+  Element uses an expression to display the elements data.
+-->
+
