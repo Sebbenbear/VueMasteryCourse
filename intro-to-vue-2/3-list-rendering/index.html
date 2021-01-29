@@ -1,0 +1,58 @@
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="nav-bar"></div>
+
+  <div id="app">
+    <div class="product">
+
+      <div class="product-image">
+        <a :href="imageLink"> 
+          <img v-bind:src="image" :alt="altText">
+        </a>
+      </div>
+
+      <div class="product-info">
+        <h1>{{ product }}</h1>
+        <!-- <p v-if="inStock && inventory > 10">In stock</p> -->
+
+        <p v-if="inventory > 10">In stock</p>
+        <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out</p>
+        <p v-else>Out of stock</p>
+
+        <p v-show="onSale">On Sale!</p>
+
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
+
+        <ul>
+          <li v-for="variant in variants" :key="variant.variantId">{{ variant.variantColour }}</li>
+        </ul>
+
+        <ul>
+          <li v-for="size in sizes">{{ size }}</li>
+        </ul>
+
+        
+      </div>
+
+      <p>{{ description }}</p>
+    </div>
+  </div>
+</body>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="main.js"></script>
+
+<!-- 
+<li v-for="detail in details">{{ detail }}</li>
+
+where detail is the arbitrary name for each element we iterate over in
+our collection (in this case a list)
+
+-->
+
