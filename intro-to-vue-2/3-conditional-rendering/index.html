@@ -10,13 +10,20 @@
     <div class="product">
 
       <div class="product-image">
-        <a :href="imageLink"> <!-- shorthand for v-bind here -->
-          <img v-bind:src="image" :alt="altText"> <!-- v-bind directive. creates bond between data and attribute for it to be bound to. -->
+        <a :href="imageLink"> 
+          <img v-bind:src="image" :alt="altText">
         </a>
       </div>
 
       <div class="product-info">
-        <h1>{{ product }}</h1> <!-- reference to data property in main.js-->
+        <h1>{{ product }}</h1>
+        <!-- <p v-if="inStock && inventory > 10">In stock</p> -->
+
+        <p v-if="inventory > 10">In stock</p>
+        <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out</p>
+        <p v-else>Out of stock</p>
+
+        <p v-show="onSale">On Sale!</p>
       </div>
 
       <p>{{ description }}</p>
@@ -28,21 +35,9 @@
 <script src="main.js"></script>
 
 <!-- 
-v-bind dynamically binds an attribute to an expression.
-v-bind:src="expression" - it glues the element to the expression.
-
-For short, use just : instead of v-bind:
-:alt="description"
-:href="url"
-:title="tooltip"
-
-When we talk about data binding in Vue, we mean that the place where 
-it is used or displayed in the template is directly linked, 
-or bound to the source of the data, which is the data object inside 
-the Vue instance.
-
-In other words, the host of the data is linked to the target of the 
-data. In this case, our data is hosted by the data property of our Vue 
-instance. And we want to target that data from our src
+v-show is like v-if, but it's more efficient if items are
+displayed more frequently. 
+v-if removes from dom
+v-show just adds the style display: none so it can't be seen.
 -->
 
