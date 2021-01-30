@@ -1,0 +1,71 @@
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="nav-bar"></div>
+
+  <div id="app">
+    <div class="product">
+
+      <div class="product-image">
+        <a :href="imageLink"> 
+          <img v-bind:src="image" :alt="altText">
+        </a>
+      </div>
+
+      <div class="product-info">
+        <h1>{{ product }}</h1>
+        <!-- <p v-if="inStock && inventory > 10">In stock</p> -->
+
+        <p v-if="inventory > 10">In stock</p>
+        <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out</p>
+        <p v-else>Out of stock</p>
+
+        <p v-show="onSale">On Sale!</p>
+
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
+
+        <p>Colours Available</p>
+
+
+        <div v-for="variant in variants" :key="variant.variantId">
+          <!-- You can reference the variables in the inner html elements as params when invoking -->
+          <p @mouseover="updateProduct(variant.variantImage)"> {{ variant.variantColour }} </p>
+        </div>
+
+        
+        <!--<button v-on:click="cart += 1">Add to cart</button>  -->
+        <button v-on:click="addToCart">Add to cart</button> <!-- Increment cart by one on click-->
+        <button @click="removeFromCart">Remove from cart</button>
+
+        <div class="cart">
+          <p>Cart ({{cart}})</p>
+        </div>
+        
+      </div>
+
+      <p>{{ description }}</p>
+    </div>
+  </div>
+</body>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="main.js"></script>
+
+<!-- 
+For event handling, you can use v-on: followed by <action>.
+  v-on:click or @click
+  @mouseover
+
+  <form @submit="addToCart">...</form>
+  <input @keyup.enter="send"> <- This "enter" modifier
+      triggers the send method once the "enter" key lifts up.
+
+
+
+-->
+
