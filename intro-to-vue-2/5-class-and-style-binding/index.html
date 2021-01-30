@@ -1,0 +1,146 @@
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="nav-bar"></div>
+
+  <div id="app">
+    <div class="product">
+
+      <div class="product-image">
+        <a :href="imageLink"> 
+          <img v-bind:src="image" :alt="altText">
+        </a>
+      </div>
+
+      <div class="product-info">
+        <h1>{{ product }}</h1>
+
+        <p v-if="inStock">In stock</p>
+        
+        <p :class=" { outOfStock: !inStock }" v-else >Out of stock</p>
+
+        <p v-show="onSale">On Sale!</p>
+
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
+
+        <p>Colours Available</p>
+
+        <!-- No : before class since it's not computed and doesn't need binding-->
+        <div v-for="variant in variants"
+          :key="variant.variantId"
+          class="color-box" 
+          :style="{ backgroundColor: variant.variantColour }"
+          @mouseover="updateProduct(variant.variantImage)">
+        </div>
+        
+        <button
+          v-on:click="addToCart" 
+          :disabled="!inStock"
+          :class="{ disabledButton: !inStock } "><!-- : before class since it's computed and needs binding-->
+            Add to cart
+        </button> 
+        <button @click="removeFromCart">Remove from cart</button>
+
+        <div class="cart">
+          <p>Cart ({{cart}})</p>
+        </div>
+        
+      </div>
+
+      <p>{{ description }}</p>
+    </div>
+  </div>
+</body>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="main.js"></script>
+</html>
+<!-- 
+Style bindings
+
+<p :style="{ fontSize }">...</p>
+
+data: {
+  color: "red",
+  fontsize: "13px"
+}
+
+Its cleaner and more readable to bind to a style object.
+
+<span :style='styleObject'>...</span>
+data: {
+  styleObject: {
+    color: 'red',
+    fontSize: '13px'
+  } 
+}
+
+If you have multiple style objects, you can bind them with an array.
+
+<span :style="[styleObject1, styleObject2]">...</span>
+
+data: {
+  styleObject1: {
+    color: 'red',
+    fontSize: '13px'
+  },
+    styleObject2: {
+    color: 'red',
+    fontSize: '13px'
+  } 
+}
+
+====
+
+class bindings: 
+
+<div class="color-box"
+    :class=" { active: activeClass, 'text-danger': errorClass } "
+
+data: {
+  activeClass: true,  // can only have one of these at a time!
+  errorClass: false
+}
+
+This means colorbox will still be there when it's evaluated - it will be active.
+
+<div class="color-box active">...</div>
+
+Can also bind an object to classes.
+
+<div :class="classObject">...</div>
+
+data: {
+  classObject: {
+    active: true,
+    'text-danger': false
+  }
+}
+
+This results in 
+<div class="active">...</div>
+
+You can also add an array of classes:
+
+<div :class="[activeClass, errorClass]">...</div>
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+
+Can also do conditional logic with ternary operator.
+
+<div :class="[activeClass ? activeClass : '']">...</div>
+data: {
+  activeisActive: true,
+  activeClass: 'active'
+}
+-->
+
